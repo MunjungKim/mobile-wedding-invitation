@@ -348,59 +348,94 @@ section {
 }
 
 /* ========================================
-   2. MAIN COVER
+   2. MAIN COVER — Film/Photo Booth Style
    ======================================== */
 #cover {
-  padding-top: 80px;
-  padding-bottom: 40px;
+  padding: 0;
+  max-width: 100%;
   opacity: 0;
   transition: opacity 1s ease 0.5s;
+  position: relative;
+  background: #f0f0f0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 #cover.active { opacity: 1; }
 
-.cover-label {
-  font-size: 0.75rem;
-  letter-spacing: 6px;
-  color: #999;
-  margin-bottom: 40px;
+.cover-film {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  padding: 28px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
-.cover-names {
-  font-family: 'Noto Serif KR', serif;
-  font-size: 1.8rem;
-  font-weight: 600;
-  line-height: 1.8;
-  color: #1a1a1a;
-}
-.cover-names .amp {
-  display: block;
-  font-size: 0.9rem;
-  color: #999;
-  margin: 4px 0;
-}
-.cover-eng {
-  font-size: 0.75rem;
-  color: #999;
+
+/* Side text — vertical */
+.cover-side-left {
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%) rotate(-90deg);
+  transform-origin: center;
+  font-size: 0.7rem;
   letter-spacing: 3px;
-  margin-top: 8px;
+  color: #999;
+  white-space: nowrap;
 }
-.cover-date {
-  font-size: 0.85rem;
-  color: #888;
-  margin-top: 32px;
+.cover-side-right {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%) rotate(90deg);
+  transform-origin: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 4px;
+  color: #1a1a1a;
+  white-space: nowrap;
+}
+
+/* Film frame numbers */
+.cover-frame-num {
+  position: absolute;
+  font-size: 0.6rem;
+  color: #aaa;
+  letter-spacing: 1px;
+}
+.cover-frame-num.top-right { top: 16px; right: 12px; }
+.cover-frame-num.bottom-right { bottom: 16px; right: 12px; }
+.cover-frame-num.bottom-left {
+  bottom: 16px;
+  left: 8px;
+  transform: rotate(-90deg);
+  transform-origin: left bottom;
+  font-size: 0.7rem;
   letter-spacing: 2px;
+  color: #999;
 }
+
+/* Photo frames */
 .cover-photo {
   width: 100%;
-  max-width: 360px;
-  margin: 40px auto 0;
-  border-radius: 8px;
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
 }
 .cover-photo img {
   width: 100%;
-  height: 420px;
+  height: 48vw;
+  max-height: 320px;
   object-fit: cover;
+  filter: grayscale(100%);
+}
+.cover-photo:first-child img {
+  height: 52vw;
+  max-height: 360px;
 }
 
 /* ========================================
@@ -925,19 +960,25 @@ section {
   </div>
 </div>
 
-<!-- ===== 2. MAIN COVER ===== -->
+<!-- ===== 2. MAIN COVER — Film Style ===== -->
 <section id="cover">
-  <div class="cover-label">WEDDING INVITATION</div>
-  <div class="divider"></div>
-  <div class="cover-names serif">
-    김민준
-    <span class="amp">그리고</span>
-    이서연
-  </div>
-  <div class="cover-eng">MINJUN & SEOYEON</div>
-  <div class="cover-date">2025. 05. 24. SAT PM 2:00</div>
-  <div class="cover-photo">
-    <img src="https://picsum.photos/seed/wedding-cover/600/700" alt="커플 사진">
+  <div class="cover-film">
+    <!-- Side texts -->
+    <div class="cover-side-left">SAT · 2:00 PM</div>
+    <div class="cover-side-right">MINJUN & SEOYEON</div>
+
+    <!-- Film frame numbers -->
+    <div class="cover-frame-num top-right">13A</div>
+    <div class="cover-frame-num bottom-right">12A</div>
+    <div class="cover-frame-num bottom-left">MAY 24, 2025</div>
+
+    <!-- Photos -->
+    <div class="cover-photo">
+      <img src="https://picsum.photos/seed/couple1/600/500" alt="커플 사진 1">
+    </div>
+    <div class="cover-photo">
+      <img src="https://picsum.photos/seed/couple2/600/450" alt="커플 사진 2">
+    </div>
   </div>
 </section>
 
