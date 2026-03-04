@@ -6,7 +6,7 @@
 <title>김민준 ♥ 이서연 결혼합니다</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Serif+KR:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Nanum+Brush+Script&family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Serif+KR:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 /* ===== RESET & BASE ===== */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -23,6 +23,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
 /* ===== TYPOGRAPHY ===== */
 .serif { font-family: 'Noto Serif KR', serif; }
+.calligraphy { font-family: 'Great Vibes', cursive; }
+.brush { font-family: 'Nanum Brush Script', cursive; }
 .sub-text { color: #888; }
 .divider {
   width: 1px; height: 40px; background: #1a1a1a; margin: 24px auto;
@@ -50,7 +52,7 @@ section {
 /* ===== SCROLL ANIMATION ===== */
 .reveal {
   opacity: 0;
-  transform: translateY(30px);
+  transform: translateY(40px);
   transition: opacity 0.8s ease, transform 0.8s ease;
 }
 .reveal.visible {
@@ -58,8 +60,42 @@ section {
   transform: translateY(0);
 }
 
+/* Staggered line-by-line reveal */
+.reveal-line {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal-line.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Word-by-word fade */
+.reveal-word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.reveal-word.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Scale-in for special elements */
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.85);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal-scale.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
 /* ========================================
-   1. ENVELOPE OPENING — Vintage Style
+   1. ENVELOPE OPENING — Vintage Calligraphy
    ======================================== */
 #envelope-wrap {
   position: fixed;
@@ -78,8 +114,8 @@ section {
 
 .envelope-container {
   position: relative;
-  width: 300px;
-  height: 460px;
+  width: 320px;
+  height: 520px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -87,45 +123,34 @@ section {
 
 .envelope {
   position: relative;
-  width: 280px;
-  height: 200px;
-  margin-top: 60px;
+  width: 290px;
+  height: 210px;
+  margin-top: 40px;
+  perspective: 600px;
 }
 
-/* Envelope body - the main rectangular pocket */
+/* Envelope body */
 .envelope-body {
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 160px;
+  height: 170px;
   background: #fff;
-  border: 1px solid #d0d0d0;
+  border: 1px solid #d8d8d8;
   border-top: none;
-  border-radius: 0 0 4px 4px;
+  border-radius: 0 0 6px 6px;
   z-index: 3;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+  box-shadow: 0 6px 24px rgba(0,0,0,0.07);
 }
 
-/* Side flaps (decorative triangles behind the body) */
-.envelope-body::before {
-  content: '';
-  position: absolute;
-  top: -1px; left: -1px; right: -1px;
-  height: 80px;
-  background: linear-gradient(135deg, #fff 33%, transparent 33%) left,
-              linear-gradient(-135deg, #fff 33%, transparent 33%) right;
-  background-size: 51% 100%;
-  background-repeat: no-repeat;
-}
-
-/* Top flap — the V-shaped lid that opens */
+/* Top flap */
 .envelope-flap {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 140px;
+  height: 150px;
   transform-origin: top center;
   transform-style: preserve-3d;
   transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
@@ -139,14 +164,40 @@ section {
   backface-visibility: hidden;
   background: #fff;
   clip-path: polygon(0 0, 50% 100%, 100% 0);
-  border: 1px solid #d0d0d0;
+  box-shadow: inset 0 -2px 8px rgba(0,0,0,0.03);
+  overflow: visible;
 }
-.flap-front::before {
+.flap-front::after {
   content: '';
   position: absolute;
-  top: 0; left: 0; width: 100%; height: 100%;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: #d8d8d8;
   clip-path: polygon(0 0, 50% 100%, 100% 0);
-  background: linear-gradient(180deg, rgba(0,0,0,0.02) 0%, rgba(0,0,0,0) 100%);
+}
+
+/* Calligraphy text on the flap */
+.flap-text {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  text-align: center;
+  pointer-events: none;
+  width: 200px;
+}
+.flap-text .calli-en {
+  font-family: 'Great Vibes', cursive;
+  font-size: 1.5rem;
+  color: #2c2c2c;
+  line-height: 1.3;
+}
+.flap-text .calli-sub {
+  font-family: 'Great Vibes', cursive;
+  font-size: 1rem;
+  color: #999;
+  margin-top: 2px;
 }
 
 .flap-back {
@@ -154,12 +205,12 @@ section {
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
-  background: #f0f0f0;
+  background: #f2f2f2;
   clip-path: polygon(0 0, 50% 100%, 100% 0);
   transform: rotateX(180deg);
 }
 
-/* Bottom flap (visible behind body) */
+/* Bottom flap */
 .envelope-bottom {
   position: absolute;
   bottom: 0;
@@ -167,57 +218,55 @@ section {
   width: 100%;
   height: 100px;
   background: #fafafa;
-  clip-path: polygon(0 100%, 50% 0, 100% 100%);
-  border: 1px solid #d0d0d0;
+  clip-path: polygon(0 100%, 50% 10%, 100% 100%);
   z-index: 1;
 }
 
 /* Wax Seal */
 .wax-seal {
   position: absolute;
-  bottom: 50px;
+  bottom: 48px;
   left: 50%;
   transform: translateX(-50%);
-  width: 48px;
-  height: 48px;
-  z-index: 5;
-  transition: opacity 0.3s ease 0.3s;
+  width: 52px;
+  height: 52px;
+  z-index: 6;
+  transition: opacity 0.4s ease;
 }
 .wax-seal-circle {
-  width: 48px;
-  height: 48px;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
-  background: #1a1a1a;
+  background: radial-gradient(circle at 40% 35%, #333, #1a1a1a 60%, #111);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2), inset 0 1px 2px rgba(255,255,255,0.15);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.25), inset 0 1px 3px rgba(255,255,255,0.1);
   position: relative;
 }
 .wax-seal-circle::before {
   content: '';
   position: absolute;
-  width: 40px; height: 40px;
+  width: 42px; height: 42px;
   border-radius: 50%;
-  border: 1px solid rgba(255,255,255,0.2);
+  border: 1.5px solid rgba(255,255,255,0.15);
 }
 .wax-seal-circle span {
-  color: #fff;
-  font-family: 'Noto Serif KR', serif;
-  font-size: 0.65rem;
-  letter-spacing: 1px;
+  color: rgba(255,255,255,0.9);
+  font-family: 'Great Vibes', cursive;
+  font-size: 1.2rem;
 }
 
 /* Card inside envelope */
 .envelope-card {
   position: absolute;
-  bottom: 30px;
+  bottom: 25px;
   left: 50%;
   transform: translateX(-50%);
-  width: 240px;
-  height: 140px;
+  width: 248px;
+  height: 150px;
   background: #fff;
-  border: 1px solid #e0e0e0;
+  border: 1px solid #e5e5e5;
   border-radius: 2px;
   z-index: 2;
   display: flex;
@@ -227,22 +276,28 @@ section {
   box-shadow: 0 1px 4px rgba(0,0,0,0.04);
   transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1) 0.5s;
 }
+.envelope-card .card-calli {
+  font-family: 'Great Vibes', cursive;
+  font-size: 1.3rem;
+  color: #2c2c2c;
+  margin-bottom: 6px;
+}
 .envelope-card .card-line {
   width: 30px;
   height: 1px;
   background: #1a1a1a;
-  margin: 8px 0;
+  margin: 6px 0;
 }
 .envelope-card .names {
-  font-family: 'Noto Serif KR', serif;
-  font-size: 0.95rem;
+  font-family: 'Nanum Brush Script', cursive;
+  font-size: 1.5rem;
   color: #1a1a1a;
-  letter-spacing: 3px;
+  letter-spacing: 6px;
 }
 .envelope-card .date {
   font-size: 0.7rem;
   color: #999;
-  margin-top: 6px;
+  margin-top: 8px;
   letter-spacing: 1px;
 }
 
@@ -251,29 +306,39 @@ section {
   transform: rotateX(-180deg);
   z-index: 1;
 }
+.envelope.opened .flap-text {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
 .envelope.opened .wax-seal {
   opacity: 0;
   transition: opacity 0.3s ease;
 }
 .envelope.opened .envelope-card {
-  transform: translateX(-50%) translateY(-240px);
+  transform: translateX(-50%) translateY(-260px);
 }
 
 /* Text below envelope */
 .envelope-text {
-  margin-top: 32px;
+  margin-top: 28px;
   text-align: center;
 }
-.envelope-text .invite {
-  font-family: 'Noto Serif KR', serif;
-  font-size: 1.4rem;
+.envelope-text .invite-calli {
+  font-family: 'Great Vibes', cursive;
+  font-size: 2rem;
+  color: #2c2c2c;
+  margin-bottom: 8px;
+}
+.envelope-text .invite-kr {
+  font-family: 'Nanum Brush Script', cursive;
+  font-size: 2rem;
   color: #1a1a1a;
   letter-spacing: 8px;
 }
 .envelope-text .tap-hint {
   font-size: 0.75rem;
   color: #bbb;
-  margin-top: 16px;
+  margin-top: 20px;
   animation: pulse 2s infinite;
 }
 
@@ -342,7 +407,10 @@ section {
    3. GREETING
    ======================================== */
 #greeting { background: #fff; }
-.greeting-text {
+.greeting-lines {
+  text-align: center;
+}
+.greeting-line {
   font-size: 0.95rem;
   line-height: 2;
   color: #444;
@@ -815,35 +883,43 @@ section {
 <div id="envelope-wrap">
   <div class="envelope-container">
     <div class="envelope" id="envelope">
-      <!-- Bottom flap (behind everything) -->
+      <!-- Bottom flap -->
       <div class="envelope-bottom"></div>
 
       <!-- Card inside -->
       <div class="envelope-card">
-        <div class="names serif">민준 ♥ 서연</div>
+        <div class="card-calli">Minjun & Seoyeon</div>
         <div class="card-line"></div>
+        <div class="names">민준 ♥ 서연</div>
         <div class="date">2025. 05. 24 SAT PM 2:00</div>
       </div>
 
-      <!-- Envelope body (front pocket) -->
+      <!-- Envelope body -->
       <div class="envelope-body"></div>
 
-      <!-- Top flap (the lid) -->
+      <!-- Top flap -->
       <div class="envelope-flap">
         <div class="flap-front"></div>
         <div class="flap-back"></div>
       </div>
 
+      <!-- Calligraphy on flap -->
+      <div class="flap-text">
+        <div class="calli-en">You are invited</div>
+        <div class="calli-sub">to our wedding</div>
+      </div>
+
       <!-- Wax seal -->
       <div class="wax-seal">
         <div class="wax-seal-circle">
-          <span>W</span>
+          <span>M&S</span>
         </div>
       </div>
     </div>
 
     <div class="envelope-text">
-      <div class="invite serif">초대합니다</div>
+      <div class="invite-calli">Wedding Invitation</div>
+      <div class="invite-kr">초대합니다</div>
       <div class="tap-hint">화면을 터치해주세요</div>
     </div>
   </div>
@@ -869,25 +945,27 @@ section {
 <section id="greeting">
   <div class="reveal">
     <div class="section-title">INVITATION</div>
-    <p class="greeting-text">
-      서로가 마주보며 다져온 사랑을<br>
-      이제 함께 한 곳을 바라보며<br>
-      걸어가고자 합니다.<br><br>
-      저희 두 사람이 사랑의 이름으로<br>
-      지금껏 살아온 날들보다<br>
-      더 큰 사랑으로 채울<br>
-      새로운 날들을 시작하려 합니다.<br><br>
-      소중한 걸음 하시어<br>
-      축복해 주시면 감사하겠습니다.
-    </p>
+  </div>
+  <div class="greeting-lines">
+    <p class="greeting-line reveal-line">서로가 마주보며 다져온 사랑을</p>
+    <p class="greeting-line reveal-line">이제 함께 한 곳을 바라보며</p>
+    <p class="greeting-line reveal-line">걸어가고자 합니다.</p>
+    <p class="greeting-line reveal-line" style="margin-top:20px;">저희 두 사람이 사랑의 이름으로</p>
+    <p class="greeting-line reveal-line">지금껏 살아온 날들보다</p>
+    <p class="greeting-line reveal-line">더 큰 사랑으로 채울</p>
+    <p class="greeting-line reveal-line">새로운 날들을 시작하려 합니다.</p>
+    <p class="greeting-line reveal-line" style="margin-top:20px;">소중한 걸음 하시어</p>
+    <p class="greeting-line reveal-line">축복해 주시면 감사하겠습니다.</p>
+  </div>
+  <div class="reveal" style="transition-delay: 0.3s;">
     <div class="divider"></div>
     <div class="parents-info">
-      <div class="parent-line">
+      <div class="parent-line reveal-line">
         <span class="role">김영수 · 박미경</span>
         <span>의 장남</span>
         <span class="child-name">민준</span>
       </div>
-      <div class="parent-line">
+      <div class="parent-line reveal-line">
         <span class="role">이정호 · 최수진</span>
         <span>의 장녀</span>
         <span class="child-name">서연</span>
@@ -1135,10 +1213,11 @@ section {
 })();
 
 /* ===================================
-   2. SCROLL REVEAL
+   2. SCROLL REVEAL (staggered)
    =================================== */
 (function() {
-  var reveals = document.querySelectorAll('.reveal');
+  // Basic reveals
+  var reveals = document.querySelectorAll('.reveal, .reveal-scale');
   var observer = new IntersectionObserver(function(entries) {
     entries.forEach(function(entry) {
       if (entry.isIntersecting) {
@@ -1147,6 +1226,34 @@ section {
     });
   }, { threshold: 0.15 });
   reveals.forEach(function(el) { observer.observe(el); });
+
+  // Staggered line-by-line reveals
+  var lineGroups = document.querySelectorAll('.greeting-lines, .parents-info');
+  var lineObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        var lines = entry.target.querySelectorAll('.reveal-line');
+        lines.forEach(function(line, i) {
+          setTimeout(function() {
+            line.classList.add('visible');
+          }, i * 150);
+        });
+        lineObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  lineGroups.forEach(function(g) { lineObserver.observe(g); });
+
+  // Individual reveal-line elements not in groups
+  var standaloneLines = document.querySelectorAll('.reveal-line:not(.greeting-lines .reveal-line):not(.parents-info .reveal-line)');
+  var standaloneObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+  standaloneLines.forEach(function(el) { standaloneObserver.observe(el); });
 })();
 
 /* ===================================
