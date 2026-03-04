@@ -6,7 +6,7 @@
 <title>김민준 ♥ 이서연 결혼합니다</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Nanum+Brush+Script&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Serif+KR:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Gowun+Batang:wght@400;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
 /* ===== RESET & BASE ===== */
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
@@ -34,9 +34,8 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 }
 
 /* ===== TYPOGRAPHY ===== */
-.serif{font-family:'Noto Serif KR',serif}
-.calligraphy{font-family:'Great Vibes',cursive}
-.brush{font-family:'Nanum Brush Script',cursive}
+.serif{font-family:'Gowun Batang',serif}
+.calligraphy{font-family:'Pinyon Script',cursive}
 .elegant{font-family:'Cormorant Garamond',serif}
 .sub-text{color:var(--warm-grey)}
 .divider{width:1px;height:40px;background:var(--tan);margin:24px auto}
@@ -77,136 +76,131 @@ section{
 .reveal-line.visible{opacity:1;transform:translateY(0)}
 
 /* ========================================
-   1. ENVELOPE — Vintage Craft Paper
+   1. ENVELOPE — Full-page vintage letter
    ======================================== */
 #envelope-wrap{
   position:fixed;top:0;left:0;width:100%;height:100%;
   z-index:9999;
   display:flex;align-items:center;justify-content:center;
-  background:var(--paper-dark);
+  /* Warm aged paper background */
+  background-color:#e8dfcf;
   background-image:
-    radial-gradient(ellipse at 30% 40%,rgba(255,255,255,0.1) 0%,transparent 60%),
-    radial-gradient(ellipse at 70% 70%,rgba(180,160,130,0.15) 0%,transparent 50%);
-  transition:opacity 0.6s ease;
+    url("data:image/svg+xml,%3Csvg width='300' height='300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E"),
+    radial-gradient(ellipse at 30% 20%,rgba(255,250,240,0.3) 0%,transparent 50%),
+    radial-gradient(ellipse at 80% 80%,rgba(180,160,130,0.2) 0%,transparent 50%);
+  transition:opacity 0.8s ease;
+  overflow:hidden;
 }
 #envelope-wrap.hide{opacity:0;pointer-events:none}
 
-.envelope-container{
-  position:relative;width:340px;
-  display:flex;flex-direction:column;align-items:center;
-  padding-top:50px;
+/* Diagonal flap crease line */
+#envelope-wrap::before{
+  content:'';position:absolute;
+  top:0;left:0;width:150%;height:150%;
+  background:linear-gradient(135deg,
+    transparent 32.5%,
+    rgba(0,0,0,0.04) 32.5%,
+    rgba(0,0,0,0.04) 33%,
+    transparent 33%
+  );
+  pointer-events:none;
+}
+#envelope-wrap::after{
+  content:'';position:absolute;
+  top:0;left:0;width:150%;height:150%;
+  background:linear-gradient(-135deg,
+    transparent 32.5%,
+    rgba(0,0,0,0.03) 32.5%,
+    rgba(0,0,0,0.03) 33%,
+    transparent 33%
+  );
+  pointer-events:none;
 }
 
-.envelope{
-  position:relative;width:300px;height:220px;
-  filter:drop-shadow(0 10px 30px rgba(60,40,20,0.18));
+/* Envelope content layout */
+.env-page{
+  position:relative;width:100%;height:100%;
+  max-width:480px;padding:48px 32px;
+  display:flex;flex-direction:column;
 }
 
-/* Envelope body */
-.envelope-body{
-  position:absolute;bottom:0;left:0;width:100%;height:170px;
-  background-color:var(--paper);
-  background-image:url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-  border-radius:0 0 4px 4px;z-index:3;
+/* FROM address */
+.env-from{
+  font-size:0.6rem;letter-spacing:1px;color:var(--warm-grey);
+  line-height:1.8;text-transform:uppercase;
 }
 
-.envelope-side-left,.envelope-side-right{
-  position:absolute;bottom:0;width:52%;height:170px;
-  background-color:var(--paper-dark);z-index:2;
-}
-.envelope-side-left{left:0;clip-path:polygon(0 0,0 100%,100% 100%,100% 50%);border-radius:0 0 0 4px}
-.envelope-side-right{right:0;clip-path:polygon(100% 0,0 50%,0 100%,100% 100%);border-radius:0 0 4px 0}
-
-/* Top flap */
-.envelope-flap{
-  position:absolute;top:0;left:0;width:100%;height:160px;
-  transform-origin:top center;transform-style:preserve-3d;
-  transition:transform 1s cubic-bezier(0.4,0,0.2,1);z-index:4;
-}
-.flap-front{
-  position:absolute;width:100%;height:100%;
-  backface-visibility:hidden;
-  background-color:var(--paper);
-  background-image:url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-  clip-path:polygon(0 0,50% 95%,100% 0);
-}
-.flap-front::after{
-  content:'';position:absolute;bottom:0;left:20%;right:20%;height:30%;
-  background:linear-gradient(to top,rgba(0,0,0,0.04),transparent);
-  clip-path:polygon(0 100%,50% 0,100% 100%);
-}
-.flap-back{
-  position:absolute;width:100%;height:100%;
-  backface-visibility:hidden;background-color:#ddd5c8;
-  clip-path:polygon(0 0,50% 95%,100% 0);transform:rotateX(180deg);
+/* TO address */
+.env-to{
+  position:absolute;top:48px;right:32px;
+  text-align:right;font-size:0.6rem;letter-spacing:1px;
+  color:var(--warm-grey);text-transform:uppercase;
 }
 
-.envelope-bottom{
-  position:absolute;bottom:0;left:0;width:100%;height:110px;
-  background-color:var(--paper-dark);
-  clip-path:polygon(0 100%,50% 8%,100% 100%);
-  z-index:1;border-radius:0 0 4px 4px;
-}
-
-/* Card */
-.envelope-card{
-  position:absolute;bottom:20px;left:50%;transform:translateX(-50%);
-  width:260px;height:210px;
-  background-color:#f5f0e6;
-  background-image:url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-  border-radius:2px;z-index:2;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  padding:20px;
-  box-shadow:0 1px 6px rgba(80,60,30,0.08);
-  transition:transform 1s cubic-bezier(0.4,0,0.2,1) 0.5s;
-}
-.envelope-card .card-title{
-  font-family:'Great Vibes',cursive;font-size:2rem;
-  color:var(--burgundy);line-height:1.2;text-align:center;
-}
-.envelope-card .card-line{width:40px;height:1px;background:var(--tan);margin:12px 0}
-.envelope-card .card-names{
-  font-family:'Nanum Brush Script',cursive;font-size:1.6rem;
-  color:var(--brown);letter-spacing:6px;
-}
-.envelope-card .card-date{font-size:0.7rem;color:var(--warm-grey);margin-top:8px;letter-spacing:2px}
-
-/* Wax Seal */
-.wax-seal{
-  position:absolute;bottom:52px;left:50%;transform:translateX(-50%);
-  z-index:6;transition:opacity 0.4s ease;
-}
-.wax-seal-circle{
-  width:50px;height:50px;border-radius:50%;
-  background:radial-gradient(circle at 38% 32%,#a03040,var(--burgundy) 70%);
+/* Stamp decoration */
+.env-stamp{
+  position:absolute;top:90px;right:32px;
+  width:56px;height:66px;
+  border:2px solid var(--light-tan);
+  border-radius:2px;
   display:flex;align-items:center;justify-content:center;
-  box-shadow:0 2px 8px rgba(80,20,30,0.35),inset 0 1px 2px rgba(255,255,255,0.1),0 0 0 3px rgba(80,20,30,0.08);
-  position:relative;
-}
-.wax-seal-circle::before{
-  content:'';position:absolute;width:40px;height:40px;border-radius:50%;
-  border:1px solid rgba(255,255,255,0.15);
-}
-.wax-seal-circle span{
-  color:rgba(255,255,255,0.9);font-family:'Great Vibes',cursive;font-size:1.1rem;
+  color:var(--tan);font-size:0.5rem;letter-spacing:1px;text-transform:uppercase;
 }
 
-/* Opened */
-.envelope.opened .envelope-flap{transform:rotateX(-180deg);z-index:1}
-.envelope.opened .wax-seal{opacity:0;transition:opacity 0.3s ease}
-.envelope.opened .envelope-card{transform:translateX(-50%) translateY(-300px)}
+/* Center calligraphy */
+.env-center{
+  flex:1;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;margin-top:-20px;
+}
+.env-title{
+  font-family:'Pinyon Script',cursive;
+  font-size:3rem;line-height:1.15;
+  color:var(--burgundy);
+}
+.env-subtitle{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;font-weight:300;
+  font-size:1rem;color:var(--warm-grey);
+  margin-top:8px;letter-spacing:2px;
+}
+.env-names{
+  font-family:'Gowun Batang',serif;
+  font-size:1.1rem;color:var(--brown);
+  margin-top:20px;letter-spacing:4px;
+}
 
-/* Text below */
-.envelope-text{margin-top:28px;text-align:center}
-.envelope-text .invite-calli{
-  font-family:'Great Vibes',cursive;font-size:2rem;color:var(--burgundy);
+/* Bottom row */
+.env-bottom{
+  display:flex;justify-content:space-between;align-items:flex-end;
 }
-.envelope-text .invite-kr{
-  font-family:'Nanum Brush Script',cursive;font-size:2.2rem;
-  color:var(--brown);letter-spacing:6px;margin-top:4px;
+.env-date-left{
+  font-size:0.65rem;color:var(--warm-grey);letter-spacing:1px;line-height:1.6;
 }
-.envelope-text .tap-hint{
-  font-size:0.75rem;color:var(--tan);margin-top:20px;animation:pulse 2s infinite;
+.env-date-right{
+  text-align:right;font-size:0.65rem;color:var(--warm-grey);letter-spacing:1px;line-height:1.6;
+}
+
+/* Postmark circle */
+.env-postmark{
+  position:absolute;top:130px;right:60px;
+  width:60px;height:60px;border-radius:50%;
+  border:1.5px solid rgba(139,38,53,0.2);
+  display:flex;align-items:center;justify-content:center;
+  transform:rotate(-15deg);
+}
+.env-postmark span{
+  font-size:0.4rem;text-transform:uppercase;letter-spacing:1px;
+  color:rgba(139,38,53,0.25);text-align:center;line-height:1.3;
+}
+
+/* Tap hint */
+.env-tap{
+  position:absolute;bottom:100px;left:50%;transform:translateX(-50%);
+  text-align:center;
+}
+.env-tap span{
+  font-size:0.7rem;color:var(--tan);letter-spacing:2px;animation:pulse 2s infinite;
 }
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
 
@@ -263,7 +257,7 @@ section{
   font-size:0.85rem;letter-spacing:3px;color:var(--warm-grey);
 }
 .cover-detail .detail-names{
-  font-family:'Nanum Brush Script',cursive;
+  font-family:'Gowun Batang',serif;
   font-size:1.4rem;color:var(--brown);margin-top:8px;letter-spacing:4px;
 }
 
@@ -329,7 +323,7 @@ section{
 }
 .parents-info .role{color:var(--warm-grey);font-size:0.8rem}
 .parents-info .child-name{
-  font-family:'Noto Serif KR',serif;font-weight:600;font-size:1.05rem;
+  font-family:'Gowun Batang',serif;font-weight:600;font-size:1.05rem;
 }
 
 /* ========================================
@@ -403,7 +397,7 @@ section{
    ======================================== */
 #location{background:var(--paper)}
 
-.location-name{font-family:'Noto Serif KR',serif;font-size:1.2rem;color:var(--brown);margin-bottom:8px}
+.location-name{font-family:'Gowun Batang',serif;font-size:1.2rem;color:var(--brown);margin-bottom:8px}
 .location-addr{font-size:0.85rem;color:var(--warm-grey);line-height:1.6}
 .location-tel{font-size:0.85rem;color:var(--warm-grey);margin-top:4px}
 .location-tel a{color:var(--burgundy);text-decoration:none}
@@ -515,33 +509,42 @@ section{
 </head>
 <body>
 
-<!-- ===== 1. ENVELOPE ===== -->
+<!-- ===== 1. ENVELOPE — Full page vintage letter ===== -->
 <div id="envelope-wrap">
-  <div class="envelope-container">
-    <div class="envelope" id="envelope">
-      <div class="envelope-bottom"></div>
-      <div class="envelope-side-left"></div>
-      <div class="envelope-side-right"></div>
-      <div class="envelope-card">
-        <div class="card-title">You're<br>invited</div>
-        <div class="card-line"></div>
-        <div class="card-names">민준 ♥ 서연</div>
-        <div class="card-date">2025. 05. 24 SAT PM 2:00</div>
-      </div>
-      <div class="envelope-body"></div>
-      <div class="envelope-flap">
-        <div class="flap-front"></div>
-        <div class="flap-back"></div>
-      </div>
-      <div class="wax-seal">
-        <div class="wax-seal-circle"><span>M&S</span></div>
-      </div>
+  <div class="env-page">
+    <!-- FROM -->
+    <div class="env-from">
+      FROM:<br>
+      MINJUN & SEOYEON<br>
+      SEOUL, KOREA
     </div>
-    <div class="envelope-text">
-      <div class="invite-calli">Wedding Invitation</div>
-      <div class="invite-kr">초대합니다</div>
-      <div class="tap-hint">화면을 터치해주세요</div>
+
+    <!-- TO -->
+    <div class="env-to">
+      TO: 소중한 당신에게
     </div>
+
+    <!-- Stamp -->
+    <div class="env-stamp">LOVE<br>STAMP</div>
+
+    <!-- Postmark -->
+    <div class="env-postmark"><span>SEOUL<br>2025</span></div>
+
+    <!-- Center calligraphy -->
+    <div class="env-center">
+      <div class="env-title">Wedding<br>Invitation</div>
+      <div class="env-subtitle">you are cordially invited</div>
+      <div class="env-names">김민준 그리고 이서연</div>
+    </div>
+
+    <!-- Bottom -->
+    <div class="env-bottom">
+      <div class="env-date-left">24th May '25.<br>SAT · 2:00 PM</div>
+      <div class="env-date-right">더 그랜드홀 웨딩<br>서울 강남구</div>
+    </div>
+
+    <!-- Tap hint -->
+    <div class="env-tap"><span>화면을 터치해주세요</span></div>
   </div>
 </div>
 
@@ -754,34 +757,30 @@ section{
 <div class="toast" id="toast"></div>
 
 <script>
-/* 1. ENVELOPE + COVER HANDWRITING */
+/* 1. ENVELOPE TAP → COVER REVEAL */
 (function(){
   var wrap=document.getElementById('envelope-wrap');
-  var envelope=document.getElementById('envelope');
   var opened=false;
 
   wrap.addEventListener('click',function(){
     if(opened)return;
     opened=true;
-    envelope.classList.add('opened');
+    wrap.classList.add('hide');
+    document.getElementById('cover').classList.add('active');
+    document.body.style.overflow='';
+    // Staggered calligraphy reveal
     setTimeout(function(){
-      wrap.classList.add('hide');
-      document.getElementById('cover').classList.add('active');
-      document.body.style.overflow='';
-      // Staggered calligraphy reveal
+      var lines=document.querySelectorAll('.cover-intro .intro-line span');
+      lines.forEach(function(s,i){
+        setTimeout(function(){s.classList.add('written')},i*400);
+      });
       setTimeout(function(){
-        var lines=document.querySelectorAll('.cover-intro .intro-line span');
-        lines.forEach(function(s,i){
-          setTimeout(function(){s.classList.add('written')},i*400);
-        });
-        setTimeout(function(){
-          document.getElementById('coverDetail').classList.add('show');
-        },lines.length*400+300);
-        setTimeout(function(){
-          document.getElementById('coverScrollHint').classList.add('show');
-        },lines.length*400+800);
-      },400);
-    },1800);
+        document.getElementById('coverDetail').classList.add('show');
+      },lines.length*400+300);
+      setTimeout(function(){
+        document.getElementById('coverScrollHint').classList.add('show');
+      },lines.length*400+800);
+    },600);
   });
   document.body.style.overflow='hidden';
 })();
