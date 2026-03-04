@@ -153,19 +153,14 @@ section{
 }
 .env-title{
   font-family:'Pinyon Script',cursive;
-  font-size:3rem;line-height:1.15;
+  font-size:2.6rem;line-height:1.2;
   color:#2a2a2a;
 }
 .env-subtitle{
   font-family:'Cormorant Garamond',serif;
   font-style:italic;font-weight:300;
-  font-size:1rem;color:var(--warm-grey);
-  margin-top:8px;letter-spacing:2px;
-}
-.env-names{
-  font-family:'Gowun Batang',serif;
-  font-size:1.1rem;color:var(--brown);
-  margin-top:20px;letter-spacing:4px;
+  font-size:0.95rem;color:var(--warm-grey);
+  margin-top:12px;letter-spacing:2px;
 }
 
 /* Bottom row */
@@ -545,9 +540,8 @@ section{
 
     <!-- Center calligraphy -->
     <div class="env-center">
-      <div class="env-title">Wedding<br>Invitation</div>
-      <div class="env-subtitle">you are cordially invited</div>
-      <div class="env-names">서동해 그리고 김문정</div>
+      <div class="env-title">We're Getting<br>Finally Married!</div>
+      <div class="env-subtitle">SATURDAY, MAY 22, 2027 · 2:00 PM</div>
     </div>
 
     <!-- Bottom -->
@@ -772,6 +766,75 @@ section{
 
 <div class="toast" id="toast"></div>
 
+<script src="config.js"></script>
+<script>
+/* 0. APPLY CONFIG */
+(function(){
+  var C=CONFIG, G=C.groom, B=C.bride, W=C.wedding, V=C.venue, T=C.transport;
+
+  // Envelope
+  document.querySelector('.env-from').innerHTML='FROM:<br>'+G.nameEn+' & '+B.nameEn+'<br>SEOUL, KOREA';
+  document.querySelector('.env-subtitle').textContent=W.dateEn+' · '+W.timeEn;
+  document.querySelector('.env-date-left').innerHTML='22nd May \'27.<br>SAT · '+W.timeEn;
+  document.querySelector('.env-date-right').innerHTML=V.name+'<br>'+V.district;
+
+  // Cover
+  document.querySelector('.detail-date').textContent=W.dateEn+' AT '+W.timeEn.replace(':00','');
+  document.querySelector('.detail-names').textContent=G.nameKo+' 그리고 '+B.nameKo;
+
+  // Photos
+  document.querySelector('.photos-side-right').textContent=G.nameEn+' & '+B.nameEn;
+
+  // Greeting - parents
+  var parentLines=document.querySelectorAll('.parent-line');
+  if(parentLines[0]){
+    parentLines[0].innerHTML='<span class="role">'+G.father.name+' · '+G.mother.name+'</span><span>의 '+G.role+'</span><span class="child-name">'+G.nameKo.replace(/^./, '')+'</span>';
+  }
+  if(parentLines[1]){
+    parentLines[1].innerHTML='<span class="role">'+B.father.name+' · '+B.mother.name+'</span><span>의 '+B.role+'</span><span class="child-name">'+B.nameKo.replace(/^./, '')+'</span>';
+  }
+
+  // Calendar
+  document.querySelector('.wedding-info').innerHTML=W.dateKo+'<br>'+V.name;
+
+  // Location
+  document.querySelector('.location-name').textContent=V.name;
+  document.querySelector('.location-addr').textContent=V.address;
+  document.querySelectorAll('.map-btn')[0].href=V.kakaoMapUrl;
+  document.querySelectorAll('.map-btn')[1].href=V.naverMapUrl;
+  document.querySelectorAll('.map-btn')[2].href=V.googleMapUrl;
+
+  // Transport
+  var items=document.querySelectorAll('.transport-item p');
+  if(items[0])items[0].innerHTML=T.subway.replace(/\n/g,'<br>');
+  if(items[1])items[1].innerHTML=T.bus.replace(/\n/g,'<br>');
+  if(items[2])items[2].innerHTML=T.car.replace(/\n/g,'<br>');
+
+  // Account - groom
+  var groomCards=document.querySelectorAll('#panel-groom .account-card');
+  if(groomCards[0]){groomCards[0].querySelector('.bank').textContent=G.bank;groomCards[0].querySelector('.number').textContent=G.account;groomCards[0].querySelector('.holder').textContent=G.nameKo;groomCards[0].querySelector('.copy-btn').dataset.account=G.account;}
+  if(groomCards[1]){groomCards[1].querySelector('.bank').textContent=G.father.bank;groomCards[1].querySelector('.number').textContent=G.father.account;groomCards[1].querySelector('.holder').textContent=G.father.name+' (아버지)';groomCards[1].querySelector('.copy-btn').dataset.account=G.father.account;}
+  if(groomCards[2]){groomCards[2].querySelector('.bank').textContent=G.mother.bank;groomCards[2].querySelector('.number').textContent=G.mother.account;groomCards[2].querySelector('.holder').textContent=G.mother.name+' (어머니)';groomCards[2].querySelector('.copy-btn').dataset.account=G.mother.account;}
+
+  // Account - bride
+  var brideCards=document.querySelectorAll('#panel-bride .account-card');
+  if(brideCards[0]){brideCards[0].querySelector('.bank').textContent=B.bank;brideCards[0].querySelector('.number').textContent=B.account;brideCards[0].querySelector('.holder').textContent=B.nameKo;brideCards[0].querySelector('.copy-btn').dataset.account=B.account;}
+  if(brideCards[1]){brideCards[1].querySelector('.bank').textContent=B.father.bank;brideCards[1].querySelector('.number').textContent=B.father.account;brideCards[1].querySelector('.holder').textContent=B.father.name+' (아버지)';brideCards[1].querySelector('.copy-btn').dataset.account=B.father.account;}
+  if(brideCards[2]){brideCards[2].querySelector('.bank').textContent=B.mother.bank;brideCards[2].querySelector('.number').textContent=B.mother.account;brideCards[2].querySelector('.holder').textContent=B.mother.name+' (어머니)';brideCards[2].querySelector('.copy-btn').dataset.account=B.mother.account;}
+
+  // KakaoPay
+  var kakaoBtn=document.querySelector('.kakao-pay-btn');
+  if(C.kakaoPay && C.kakaoPay.enabled && C.kakaoPay.url){
+    kakaoBtn.href=C.kakaoPay.url;
+    kakaoBtn.target='_blank';
+  } else {
+    kakaoBtn.style.display='none';
+  }
+
+  // Footer
+  document.querySelector('.copyright').innerHTML='&copy; 2027 '+G.nameEn+' &amp; '+B.nameEn;
+})();
+</script>
 <script>
 /* 1. ENVELOPE TAP → COVER REVEAL */
 (function(){
@@ -893,7 +956,7 @@ section{
 
 /* 5. COUNTDOWN */
 (function(){
-  var t=new Date('2027-05-22T14:00:00+09:00').getTime();
+  var t=new Date(CONFIG.wedding.dDay).getTime();
   function u(){
     var d=t-Date.now();
     if(d<=0){document.getElementById('cd-days').textContent='0';document.getElementById('cd-hours').textContent='0';document.getElementById('cd-mins').textContent='00';document.getElementById('cd-secs').textContent='00';return}
@@ -922,12 +985,46 @@ section{
   });
 })();
 
-/* 7. RSVP */
+/* 7. RSVP → Google Sheets */
 (function(){
   document.getElementById('rsvpForm').addEventListener('submit',function(e){
     e.preventDefault();
-    var t=document.getElementById('rsvpToast');t.classList.add('show');
-    setTimeout(function(){t.classList.remove('show')},3000);this.reset();
+    var form=this;
+    var btn=form.querySelector('.submit-btn');
+    var data={
+      name: form.name.value,
+      attend: form.attend.value,
+      meal: form.meal.value,
+      guests: form.guests.value,
+      timestamp: new Date().toISOString()
+    };
+
+    var sheetUrl=CONFIG.rsvp && CONFIG.rsvp.googleSheetUrl;
+    if(!sheetUrl){
+      // Google Sheets 미설정시 토스트만 표시
+      var t=document.getElementById('rsvpToast');t.classList.add('show');
+      setTimeout(function(){t.classList.remove('show')},3000);form.reset();
+      return;
+    }
+
+    btn.textContent='전송 중...';btn.disabled=true;
+    fetch(sheetUrl,{
+      method:'POST',
+      mode:'no-cors',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(data)
+    }).then(function(){
+      var t=document.getElementById('rsvpToast');t.classList.add('show');
+      setTimeout(function(){t.classList.remove('show')},3000);
+      form.reset();
+    }).catch(function(){
+      var t=document.getElementById('rsvpToast');
+      t.textContent='전송에 실패했습니다. 다시 시도해주세요.';
+      t.classList.add('show');
+      setTimeout(function(){t.classList.remove('show');t.textContent='참석 의사가 전달되었습니다'},3000);
+    }).finally(function(){
+      btn.textContent='참석 의사 전달하기';btn.disabled=false;
+    });
   });
 })();
 
