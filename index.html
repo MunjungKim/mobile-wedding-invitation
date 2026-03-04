@@ -95,7 +95,7 @@ section {
 }
 
 /* ========================================
-   1. ENVELOPE OPENING — Vintage Calligraphy
+   1. ENVELOPE — Vintage Craft Paper
    ======================================== */
 #envelope-wrap {
   position: fixed;
@@ -104,7 +104,10 @@ section {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f5f5f5;
+  background: #e8e0d4;
+  background-image:
+    radial-gradient(ellipse at 20% 50%, rgba(255,255,255,0.15) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(200,180,150,0.2) 0%, transparent 50%);
   transition: opacity 0.6s ease;
 }
 #envelope-wrap.hide {
@@ -114,43 +117,80 @@ section {
 
 .envelope-container {
   position: relative;
-  width: 320px;
-  height: 520px;
+  width: 340px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-top: 60px;
 }
 
+/* The envelope itself */
 .envelope {
   position: relative;
-  width: 290px;
-  height: 210px;
-  margin-top: 40px;
-  perspective: 600px;
+  width: 300px;
+  height: 220px;
+  filter: drop-shadow(0 8px 28px rgba(80,60,30,0.15));
 }
 
-/* Envelope body */
+/* Craft paper texture mixin */
+.craft-paper {
+  background-color: #ede6d8;
+  background-image:
+    url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+}
+
+/* Envelope body — the front pocket */
 .envelope-body {
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
   height: 170px;
-  background: #fff;
-  border: 1px solid #d8d8d8;
-  border-top: none;
-  border-radius: 0 0 6px 6px;
+  background-color: #ede6d8;
+  background-image:
+    url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  border-radius: 0 0 4px 4px;
   z-index: 3;
-  box-shadow: 0 6px 24px rgba(0,0,0,0.07);
+}
+/* Rough edge bottom */
+.envelope-body::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 4px; right: 4px;
+  height: 4px;
+  background: #ede6d8;
+  border-radius: 0 0 3px 3px;
+  opacity: 0.6;
 }
 
-/* Top flap */
+/* Left & right side flaps (behind body) */
+.envelope-side-left,
+.envelope-side-right {
+  position: absolute;
+  bottom: 0;
+  width: 52%;
+  height: 170px;
+  background-color: #e8dfd0;
+  z-index: 2;
+}
+.envelope-side-left {
+  left: 0;
+  clip-path: polygon(0 0, 0 100%, 100% 100%, 100% 50%);
+  border-radius: 0 0 0 4px;
+}
+.envelope-side-right {
+  right: 0;
+  clip-path: polygon(100% 0, 0 50%, 0 100%, 100% 100%);
+  border-radius: 0 0 4px 0;
+}
+
+/* Top flap — V shape that opens */
 .envelope-flap {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 150px;
+  height: 160px;
   transform-origin: top center;
   transform-style: preserve-3d;
   transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
@@ -162,42 +202,19 @@ section {
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
-  background: #fff;
-  clip-path: polygon(0 0, 50% 100%, 100% 0);
-  box-shadow: inset 0 -2px 8px rgba(0,0,0,0.03);
-  overflow: visible;
+  background-color: #ede6d8;
+  background-image:
+    url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  clip-path: polygon(0 0, 50% 95%, 100% 0);
 }
+/* Subtle fold shadow on flap */
 .flap-front::after {
   content: '';
   position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 1px;
-  background: #d8d8d8;
-  clip-path: polygon(0 0, 50% 100%, 100% 0);
-}
-
-/* Calligraphy text on the flap */
-.flap-text {
-  position: absolute;
-  top: 18px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 5;
-  text-align: center;
-  pointer-events: none;
-  width: 200px;
-}
-.flap-text .calli-en {
-  font-family: 'Great Vibes', cursive;
-  font-size: 1.5rem;
-  color: #2c2c2c;
-  line-height: 1.3;
-}
-.flap-text .calli-sub {
-  font-family: 'Great Vibes', cursive;
-  font-size: 1rem;
-  color: #999;
-  margin-top: 2px;
+  bottom: 0; left: 20%; right: 20%;
+  height: 30%;
+  background: linear-gradient(to top, rgba(0,0,0,0.04), transparent);
+  clip-path: polygon(0 100%, 50% 0, 100% 100%);
 }
 
 .flap-back {
@@ -205,8 +222,8 @@ section {
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
-  background: #f2f2f2;
-  clip-path: polygon(0 0, 50% 100%, 100% 0);
+  background-color: #e4dccf;
+  clip-path: polygon(0 0, 50% 95%, 100% 0);
   transform: rotateX(180deg);
 }
 
@@ -216,106 +233,107 @@ section {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 100px;
-  background: #fafafa;
-  clip-path: polygon(0 100%, 50% 10%, 100% 100%);
+  height: 110px;
+  background-color: #e8dfd0;
+  clip-path: polygon(0 100%, 50% 8%, 100% 100%);
   z-index: 1;
+  border-radius: 0 0 4px 4px;
 }
 
-/* Wax Seal */
-.wax-seal {
-  position: absolute;
-  bottom: 48px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 52px;
-  height: 52px;
-  z-index: 6;
-  transition: opacity 0.4s ease;
-}
-.wax-seal-circle {
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 40% 35%, #333, #1a1a1a 60%, #111);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.25), inset 0 1px 3px rgba(255,255,255,0.1);
-  position: relative;
-}
-.wax-seal-circle::before {
-  content: '';
-  position: absolute;
-  width: 42px; height: 42px;
-  border-radius: 50%;
-  border: 1.5px solid rgba(255,255,255,0.15);
-}
-.wax-seal-circle span {
-  color: rgba(255,255,255,0.9);
-  font-family: 'Great Vibes', cursive;
-  font-size: 1.2rem;
-}
-
-/* Card inside envelope */
+/* The card that slides up */
 .envelope-card {
   position: absolute;
-  bottom: 25px;
+  bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
-  width: 248px;
-  height: 150px;
-  background: #fff;
-  border: 1px solid #e5e5e5;
+  width: 260px;
+  height: 200px;
+  background-color: #f5f0e6;
+  background-image:
+    url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
   border-radius: 2px;
   z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
-  transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1) 0.5s;
+  padding: 20px;
+  box-shadow: 0 1px 6px rgba(80,60,30,0.08);
+  transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1) 0.5s;
 }
-.envelope-card .card-calli {
+.envelope-card .card-title {
   font-family: 'Great Vibes', cursive;
-  font-size: 1.3rem;
+  font-size: 2rem;
   color: #2c2c2c;
-  margin-bottom: 6px;
+  line-height: 1.2;
+  text-align: center;
 }
 .envelope-card .card-line {
-  width: 30px;
+  width: 40px;
   height: 1px;
-  background: #1a1a1a;
-  margin: 6px 0;
+  background: #b8a88a;
+  margin: 12px 0;
 }
-.envelope-card .names {
+.envelope-card .card-names {
   font-family: 'Nanum Brush Script', cursive;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   color: #1a1a1a;
   letter-spacing: 6px;
 }
-.envelope-card .date {
+.envelope-card .card-date {
   font-size: 0.7rem;
-  color: #999;
+  color: #a09580;
   margin-top: 8px;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
 }
 
-/* Opened state */
+/* Wax Seal */
+.wax-seal {
+  position: absolute;
+  bottom: 52px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 6;
+  transition: opacity 0.4s ease;
+}
+.wax-seal-circle {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 38% 32%, #3a3a3a, #1a1a1a 70%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 2px 8px rgba(0,0,0,0.3),
+    inset 0 1px 2px rgba(255,255,255,0.08),
+    0 0 0 3px rgba(0,0,0,0.05);
+  position: relative;
+}
+.wax-seal-circle::before {
+  content: '';
+  position: absolute;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.12);
+}
+.wax-seal-circle span {
+  color: rgba(255,255,255,0.85);
+  font-family: 'Great Vibes', cursive;
+  font-size: 1.1rem;
+}
+
+/* ---- Opened state ---- */
 .envelope.opened .envelope-flap {
   transform: rotateX(-180deg);
   z-index: 1;
-}
-.envelope.opened .flap-text {
-  opacity: 0;
-  transition: opacity 0.3s ease;
 }
 .envelope.opened .wax-seal {
   opacity: 0;
   transition: opacity 0.3s ease;
 }
 .envelope.opened .envelope-card {
-  transform: translateX(-50%) translateY(-260px);
+  transform: translateX(-50%) translateY(-300px);
 }
 
 /* Text below envelope */
@@ -326,18 +344,18 @@ section {
 .envelope-text .invite-calli {
   font-family: 'Great Vibes', cursive;
   font-size: 2rem;
-  color: #2c2c2c;
-  margin-bottom: 8px;
+  color: #4a3f30;
 }
 .envelope-text .invite-kr {
   font-family: 'Nanum Brush Script', cursive;
-  font-size: 2rem;
-  color: #1a1a1a;
-  letter-spacing: 8px;
+  font-size: 2.2rem;
+  color: #3a3020;
+  letter-spacing: 6px;
+  margin-top: 4px;
 }
 .envelope-text .tap-hint {
   font-size: 0.75rem;
-  color: #bbb;
+  color: #b8a88a;
   margin-top: 20px;
   animation: pulse 2s infinite;
 }
@@ -999,27 +1017,25 @@ section {
       <!-- Bottom flap -->
       <div class="envelope-bottom"></div>
 
+      <!-- Side flaps -->
+      <div class="envelope-side-left"></div>
+      <div class="envelope-side-right"></div>
+
       <!-- Card inside -->
       <div class="envelope-card">
-        <div class="card-calli">Minjun & Seoyeon</div>
+        <div class="card-title">You're<br>invited</div>
         <div class="card-line"></div>
-        <div class="names">민준 ♥ 서연</div>
-        <div class="date">2025. 05. 24 SAT PM 2:00</div>
+        <div class="card-names">민준 ♥ 서연</div>
+        <div class="card-date">2025. 05. 24 SAT PM 2:00</div>
       </div>
 
-      <!-- Envelope body -->
+      <!-- Envelope body (front) -->
       <div class="envelope-body"></div>
 
       <!-- Top flap -->
       <div class="envelope-flap">
         <div class="flap-front"></div>
         <div class="flap-back"></div>
-      </div>
-
-      <!-- Calligraphy on flap -->
-      <div class="flap-text">
-        <div class="calli-en">You are invited</div>
-        <div class="calli-sub">to our wedding</div>
       </div>
 
       <!-- Wax seal -->
