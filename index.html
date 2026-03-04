@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>김민준 ♥ 이서연 결혼합니다</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Serif+KR:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* ===== RESET & BASE ===== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  color: #2c2c2c;
+  background: #f5f5f5;
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+img { max-width: 100%; display: block; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+
+/* ===== TYPOGRAPHY ===== */
+.serif { font-family: 'Noto Serif KR', serif; }
+.sub-text { color: #888; }
+.divider {
+  width: 1px; height: 40px; background: #1a1a1a; margin: 24px auto;
+}
+.divider-h {
+  width: 60px; height: 1px; background: #ccc; margin: 20px auto;
+}
+
+/* ===== SECTION COMMON ===== */
+section {
+  padding: 60px 24px;
+  max-width: 480px;
+  margin: 0 auto;
+  text-align: center;
+}
+.section-title {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 1.1rem;
+  letter-spacing: 4px;
+  color: #1a1a1a;
+  margin-bottom: 32px;
+  text-transform: uppercase;
+}
+
+/* ===== SCROLL ANIMATION ===== */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ========================================
+   1. ENVELOPE OPENING — Vintage Style
+   ======================================== */
+#envelope-wrap {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f5f5f5;
+  transition: opacity 0.6s ease;
+}
+#envelope-wrap.hide {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.envelope-container {
+  position: relative;
+  width: 300px;
+  height: 460px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.envelope {
+  position: relative;
+  width: 280px;
+  height: 200px;
+  margin-top: 60px;
+}
+
+/* Envelope body - the main rectangular pocket */
+.envelope-body {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 160px;
+  background: #fff;
+  border: 1px solid #d0d0d0;
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  z-index: 3;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+}
+
+/* Side flaps (decorative triangles behind the body) */
+.envelope-body::before {
+  content: '';
+  position: absolute;
+  top: -1px; left: -1px; right: -1px;
+  height: 80px;
+  background: linear-gradient(135deg, #fff 33%, transparent 33%) left,
+              linear-gradient(-135deg, #fff 33%, transparent 33%) right;
+  background-size: 51% 100%;
+  background-repeat: no-repeat;
+}
+
+/* Top flap — the V-shaped lid that opens */
+.envelope-flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 140px;
+  transform-origin: top center;
+  transform-style: preserve-3d;
+  transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 4;
+}
+
+.flap-front {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  background: #fff;
+  clip-path: polygon(0 0, 50% 100%, 100% 0);
+  border: 1px solid #d0d0d0;
+}
+.flap-front::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  clip-path: polygon(0 0, 50% 100%, 100% 0);
+  background: linear-gradient(180deg, rgba(0,0,0,0.02) 0%, rgba(0,0,0,0) 100%);
+}
+
+.flap-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  background: #f0f0f0;
+  clip-path: polygon(0 0, 50% 100%, 100% 0);
+  transform: rotateX(180deg);
+}
+
+/* Bottom flap (visible behind body) */
+.envelope-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background: #fafafa;
+  clip-path: polygon(0 100%, 50% 0, 100% 100%);
+  border: 1px solid #d0d0d0;
+  z-index: 1;
+}
+
+/* Wax Seal */
+.wax-seal {
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 48px;
+  height: 48px;
+  z-index: 5;
+  transition: opacity 0.3s ease 0.3s;
+}
+.wax-seal-circle {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #1a1a1a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2), inset 0 1px 2px rgba(255,255,255,0.15);
+  position: relative;
+}
+.wax-seal-circle::before {
+  content: '';
+  position: absolute;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+.wax-seal-circle span {
+  color: #fff;
+  font-family: 'Noto Serif KR', serif;
+  font-size: 0.65rem;
+  letter-spacing: 1px;
+}
+
+/* Card inside envelope */
+.envelope-card {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 240px;
+  height: 140px;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 2px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1) 0.5s;
+}
+.envelope-card .card-line {
+  width: 30px;
+  height: 1px;
+  background: #1a1a1a;
+  margin: 8px 0;
+}
+.envelope-card .names {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 0.95rem;
+  color: #1a1a1a;
+  letter-spacing: 3px;
+}
+.envelope-card .date {
+  font-size: 0.7rem;
+  color: #999;
+  margin-top: 6px;
+  letter-spacing: 1px;
+}
+
+/* Opened state */
+.envelope.opened .envelope-flap {
+  transform: rotateX(-180deg);
+  z-index: 1;
+}
+.envelope.opened .wax-seal {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.envelope.opened .envelope-card {
+  transform: translateX(-50%) translateY(-240px);
+}
+
+/* Text below envelope */
+.envelope-text {
+  margin-top: 32px;
+  text-align: center;
+}
+.envelope-text .invite {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 1.4rem;
+  color: #1a1a1a;
+  letter-spacing: 8px;
+}
+.envelope-text .tap-hint {
+  font-size: 0.75rem;
+  color: #bbb;
+  margin-top: 16px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* ========================================
+   2. MAIN COVER
+   ======================================== */
+#cover {
+  padding-top: 80px;
+  padding-bottom: 40px;
+  opacity: 0;
+  transition: opacity 1s ease 0.5s;
+}
+#cover.active { opacity: 1; }
+
+.cover-label {
+  font-size: 0.75rem;
+  letter-spacing: 6px;
+  color: #999;
+  margin-bottom: 40px;
+}
+.cover-names {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 1.8rem;
+  font-weight: 600;
+  line-height: 1.8;
+  color: #1a1a1a;
+}
+.cover-names .amp {
+  display: block;
+  font-size: 0.9rem;
+  color: #999;
+  margin: 4px 0;
+}
+.cover-eng {
+  font-size: 0.75rem;
+  color: #999;
+  letter-spacing: 3px;
+  margin-top: 8px;
+}
+.cover-date {
+  font-size: 0.85rem;
+  color: #888;
+  margin-top: 32px;
+  letter-spacing: 2px;
+}
+.cover-photo {
+  width: 100%;
+  max-width: 360px;
+  margin: 40px auto 0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+}
+.cover-photo img {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+}
+
+/* ========================================
+   3. GREETING
+   ======================================== */
+#greeting { background: #fff; }
+.greeting-text {
+  font-size: 0.95rem;
+  line-height: 2;
+  color: #444;
+  word-break: keep-all;
+}
+.parents-info {
+  margin-top: 36px;
+  font-size: 0.9rem;
+  line-height: 2.2;
+}
+.parents-info .parent-line {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+.parents-info .role { color: #888; font-size: 0.8rem; }
+.parents-info .child-name {
+  font-family: 'Noto Serif KR', serif;
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+
+/* ========================================
+   4. GALLERY
+   ======================================== */
+#gallery { background: #f5f5f5; }
+
+.gallery-slider {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 8px;
+  touch-action: pan-y;
+}
+.gallery-track {
+  display: flex;
+  transition: transform 0.4s ease;
+}
+.gallery-slide {
+  min-width: 100%;
+  height: 400px;
+}
+.gallery-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.gallery-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 16px;
+}
+.gallery-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #ddd;
+  transition: background 0.3s;
+}
+.gallery-dot.active { background: #1a1a1a; }
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  margin-top: 20px;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.gallery-grid-item {
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.gallery-grid-item img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+.gallery-grid-item:hover img { transform: scale(1.05); }
+
+/* Lightbox */
+.lightbox {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.95);
+  z-index: 8000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.lightbox.show { display: flex; opacity: 1; }
+.lightbox img {
+  max-width: 90%;
+  max-height: 85vh;
+  object-fit: contain;
+  border-radius: 4px;
+}
+.lightbox-close {
+  position: absolute;
+  top: 20px; right: 20px;
+  color: #fff;
+  font-size: 1.8rem;
+  padding: 8px;
+  z-index: 10;
+}
+
+/* ========================================
+   5. CALENDAR
+   ======================================== */
+#calendar { background: #fff; }
+
+.cal-table {
+  width: 100%;
+  max-width: 320px;
+  margin: 0 auto;
+  border-collapse: collapse;
+}
+.cal-table th {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: #aaa;
+  padding: 8px 0;
+}
+.cal-table th:first-child { color: #e57373; }
+.cal-table th:last-child { color: #64b5f6; }
+.cal-table td {
+  text-align: center;
+  padding: 8px 0;
+  font-size: 0.85rem;
+  color: #666;
+}
+.cal-table td:first-child { color: #e57373; }
+.cal-table td:last-child { color: #64b5f6; }
+.cal-table td.today {
+  background: #1a1a1a;
+  color: #fff;
+  border-radius: 50%;
+  width: 36px; height: 36px;
+  line-height: 36px;
+  padding: 0;
+  font-weight: 700;
+}
+.cal-table td.empty { color: transparent; }
+
+.cal-header {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+  color: #1a1a1a;
+}
+
+.countdown {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 32px;
+}
+.countdown-item { text-align: center; }
+.countdown-num {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+.countdown-label {
+  font-size: 0.7rem;
+  color: #aaa;
+  margin-top: 4px;
+  letter-spacing: 1px;
+}
+.countdown-colon {
+  font-size: 1.5rem;
+  color: #ccc;
+  align-self: flex-start;
+  margin-top: 8px;
+}
+
+.wedding-info {
+  margin-top: 32px;
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.8;
+}
+
+/* ========================================
+   6. LOCATION
+   ======================================== */
+#location { background: #f5f5f5; }
+
+.location-name {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 1.2rem;
+  color: #1a1a1a;
+  margin-bottom: 8px;
+}
+.location-addr {
+  font-size: 0.85rem;
+  color: #888;
+  line-height: 1.6;
+}
+.location-tel {
+  font-size: 0.85rem;
+  color: #888;
+  margin-top: 4px;
+}
+.location-tel a { color: #1a1a1a; text-decoration: none; }
+
+.map-placeholder {
+  width: 100%;
+  max-width: 400px;
+  height: 200px;
+  margin: 24px auto;
+  background: #e5e5e5;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #aaa;
+  font-size: 0.85rem;
+}
+
+.map-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: 20px 0;
+}
+.map-btn {
+  padding: 10px 24px;
+  border: 1px solid #ccc;
+  border-radius: 24px;
+  font-size: 0.8rem;
+  color: #555;
+  background: #fff;
+  transition: all 0.3s;
+  text-decoration: none;
+}
+.map-btn:hover { border-color: #1a1a1a; color: #1a1a1a; }
+
+.transport-info {
+  text-align: left;
+  max-width: 360px;
+  margin: 28px auto 0;
+}
+.transport-item { margin-bottom: 20px; }
+.transport-item h4 {
+  font-size: 0.85rem;
+  color: #1a1a1a;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.transport-item p {
+  font-size: 0.8rem;
+  color: #888;
+  line-height: 1.7;
+  padding-left: 22px;
+}
+
+/* ========================================
+   7. ACCOUNT
+   ======================================== */
+#account { background: #fff; }
+
+.account-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  margin-bottom: 28px;
+  border: 1px solid #ddd;
+  border-radius: 24px;
+  overflow: hidden;
+  max-width: 260px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.account-tab {
+  flex: 1;
+  padding: 10px 0;
+  font-size: 0.85rem;
+  color: #888;
+  transition: all 0.3s;
+}
+.account-tab.active {
+  background: #1a1a1a;
+  color: #fff;
+}
+
+.account-panel { display: none; }
+.account-panel.active { display: block; }
+
+.account-card {
+  background: #f7f7f7;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 12px;
+  text-align: left;
+}
+.account-card .bank { font-size: 0.8rem; color: #888; }
+.account-card .number { font-size: 0.95rem; color: #2c2c2c; margin: 6px 0; font-weight: 500; }
+.account-card .holder { font-size: 0.8rem; color: #aaa; }
+.copy-btn {
+  float: right;
+  margin-top: -32px;
+  padding: 6px 16px;
+  border: 1px solid #ddd;
+  border-radius: 16px;
+  font-size: 0.75rem;
+  color: #666;
+  background: #fff;
+  transition: all 0.3s;
+}
+.copy-btn:hover { border-color: #1a1a1a; color: #1a1a1a; }
+.copy-btn.copied { border-color: #1a1a1a; color: #1a1a1a; }
+
+.kakao-pay-btn {
+  display: inline-block;
+  margin-top: 16px;
+  padding: 10px 28px;
+  background: #fee500;
+  color: #1a1a1a;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+/* ========================================
+   8. RSVP
+   ======================================== */
+#rsvp { background: #f5f5f5; }
+
+.rsvp-form {
+  max-width: 340px;
+  margin: 0 auto;
+  text-align: left;
+}
+.form-group { margin-bottom: 20px; }
+.form-group label {
+  display: block;
+  font-size: 0.8rem;
+  color: #888;
+  margin-bottom: 8px;
+}
+.form-group input[type="text"],
+.form-group select {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  background: #fff;
+  color: #2c2c2c;
+  outline: none;
+  transition: border-color 0.3s;
+}
+.form-group input:focus,
+.form-group select:focus { border-color: #1a1a1a; }
+
+.radio-group { display: flex; gap: 12px; }
+.radio-option { flex: 1; text-align: center; }
+.radio-option input { display: none; }
+.radio-option label {
+  display: block;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  color: #888;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.radio-option input:checked + label {
+  border-color: #1a1a1a;
+  color: #1a1a1a;
+  background: #f7f7f7;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 14px;
+  background: #1a1a1a;
+  color: #fff;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  transition: background 0.3s;
+  margin-top: 8px;
+}
+.submit-btn:hover { background: #333; }
+
+.rsvp-toast {
+  position: fixed;
+  bottom: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1a1a1a;
+  color: #fff;
+  padding: 12px 28px;
+  border-radius: 24px;
+  font-size: 0.85rem;
+  transition: bottom 0.4s ease;
+  z-index: 7000;
+}
+.rsvp-toast.show { bottom: 40px; }
+
+/* ========================================
+   9. FOOTER
+   ======================================== */
+#footer {
+  background: #1a1a1a;
+  padding: 40px 24px;
+  text-align: center;
+  max-width: 100%;
+}
+.share-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.share-btn {
+  padding: 10px 24px;
+  border: 1px solid #444;
+  border-radius: 24px;
+  color: #ccc;
+  font-size: 0.8rem;
+  transition: all 0.3s;
+}
+.share-btn:hover { border-color: #fff; color: #fff; }
+.copyright {
+  font-size: 0.7rem;
+  color: #555;
+  letter-spacing: 1px;
+}
+
+/* ===== TOAST ===== */
+.toast {
+  position: fixed;
+  bottom: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1a1a1a;
+  color: #fff;
+  padding: 12px 28px;
+  border-radius: 24px;
+  font-size: 0.85rem;
+  transition: bottom 0.4s ease;
+  z-index: 7000;
+  white-space: nowrap;
+}
+.toast.show { bottom: 40px; }
+</style>
+</head>
+<body>
+
+<!-- ===== 1. ENVELOPE OPENING ===== -->
+<div id="envelope-wrap">
+  <div class="envelope-container">
+    <div class="envelope" id="envelope">
+      <!-- Bottom flap (behind everything) -->
+      <div class="envelope-bottom"></div>
+
+      <!-- Card inside -->
+      <div class="envelope-card">
+        <div class="names serif">민준 ♥ 서연</div>
+        <div class="card-line"></div>
+        <div class="date">2025. 05. 24 SAT PM 2:00</div>
+      </div>
+
+      <!-- Envelope body (front pocket) -->
+      <div class="envelope-body"></div>
+
+      <!-- Top flap (the lid) -->
+      <div class="envelope-flap">
+        <div class="flap-front"></div>
+        <div class="flap-back"></div>
+      </div>
+
+      <!-- Wax seal -->
+      <div class="wax-seal">
+        <div class="wax-seal-circle">
+          <span>W</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="envelope-text">
+      <div class="invite serif">초대합니다</div>
+      <div class="tap-hint">화면을 터치해주세요</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 2. MAIN COVER ===== -->
+<section id="cover">
+  <div class="cover-label">WEDDING INVITATION</div>
+  <div class="divider"></div>
+  <div class="cover-names serif">
+    김민준
+    <span class="amp">그리고</span>
+    이서연
+  </div>
+  <div class="cover-eng">MINJUN & SEOYEON</div>
+  <div class="cover-date">2025. 05. 24. SAT PM 2:00</div>
+  <div class="cover-photo">
+    <img src="https://picsum.photos/seed/wedding-cover/600/700" alt="커플 사진">
+  </div>
+</section>
+
+<!-- ===== 3. GREETING ===== -->
+<section id="greeting">
+  <div class="reveal">
+    <div class="section-title">INVITATION</div>
+    <p class="greeting-text">
+      서로가 마주보며 다져온 사랑을<br>
+      이제 함께 한 곳을 바라보며<br>
+      걸어가고자 합니다.<br><br>
+      저희 두 사람이 사랑의 이름으로<br>
+      지금껏 살아온 날들보다<br>
+      더 큰 사랑으로 채울<br>
+      새로운 날들을 시작하려 합니다.<br><br>
+      소중한 걸음 하시어<br>
+      축복해 주시면 감사하겠습니다.
+    </p>
+    <div class="divider"></div>
+    <div class="parents-info">
+      <div class="parent-line">
+        <span class="role">김영수 · 박미경</span>
+        <span>의 장남</span>
+        <span class="child-name">민준</span>
+      </div>
+      <div class="parent-line">
+        <span class="role">이정호 · 최수진</span>
+        <span>의 장녀</span>
+        <span class="child-name">서연</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 4. GALLERY ===== -->
+<section id="gallery">
+  <div class="reveal">
+    <div class="section-title">GALLERY</div>
+    <div class="gallery-slider" id="gallerySlider">
+      <div class="gallery-track" id="galleryTrack">
+        <div class="gallery-slide"><img src="https://picsum.photos/seed/wed1/600/600" alt="갤러리1"></div>
+        <div class="gallery-slide"><img src="https://picsum.photos/seed/wed2/600/600" alt="갤러리2"></div>
+        <div class="gallery-slide"><img src="https://picsum.photos/seed/wed3/600/600" alt="갤러리3"></div>
+        <div class="gallery-slide"><img src="https://picsum.photos/seed/wed4/600/600" alt="갤러리4"></div>
+        <div class="gallery-slide"><img src="https://picsum.photos/seed/wed5/600/600" alt="갤러리5"></div>
+        <div class="gallery-slide"><img src="https://picsum.photos/seed/wed6/600/600" alt="갤러리6"></div>
+      </div>
+    </div>
+    <div class="gallery-dots" id="galleryDots"></div>
+    <div class="gallery-grid" id="galleryGrid">
+      <div class="gallery-grid-item"><img src="https://picsum.photos/seed/wed1/300/300" alt=""></div>
+      <div class="gallery-grid-item"><img src="https://picsum.photos/seed/wed2/300/300" alt=""></div>
+      <div class="gallery-grid-item"><img src="https://picsum.photos/seed/wed3/300/300" alt=""></div>
+      <div class="gallery-grid-item"><img src="https://picsum.photos/seed/wed4/300/300" alt=""></div>
+      <div class="gallery-grid-item"><img src="https://picsum.photos/seed/wed5/300/300" alt=""></div>
+      <div class="gallery-grid-item"><img src="https://picsum.photos/seed/wed6/300/300" alt=""></div>
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightboxClose">✕</button>
+  <img id="lightboxImg" src="" alt="확대 이미지">
+</div>
+
+<!-- ===== 5. CALENDAR ===== -->
+<section id="calendar">
+  <div class="reveal">
+    <div class="section-title">CALENDAR</div>
+    <div class="cal-header">2025년 5월</div>
+    <table class="cal-table">
+      <thead>
+        <tr><th>일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th>토</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="empty">.</td><td class="empty">.</td><td class="empty">.</td><td class="empty">.</td><td>1</td><td>2</td><td>3</td></tr>
+        <tr><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td></tr>
+        <tr><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td></tr>
+        <tr><td>18</td><td>19</td><td>20</td><td>21</td><td>22</td><td>23</td><td class="today">24</td></tr>
+        <tr><td>25</td><td>26</td><td>27</td><td>28</td><td>29</td><td>30</td><td>31</td></tr>
+      </tbody>
+    </table>
+    <div class="wedding-info">
+      2025년 5월 24일 토요일 오후 2시<br>
+      더 그랜드홀 웨딩 3층 그랜드볼룸
+    </div>
+    <div class="countdown" id="countdown">
+      <div class="countdown-item"><div class="countdown-num" id="cd-days">0</div><div class="countdown-label">DAYS</div></div>
+      <div class="countdown-colon">:</div>
+      <div class="countdown-item"><div class="countdown-num" id="cd-hours">0</div><div class="countdown-label">HOURS</div></div>
+      <div class="countdown-colon">:</div>
+      <div class="countdown-item"><div class="countdown-num" id="cd-mins">0</div><div class="countdown-label">MIN</div></div>
+      <div class="countdown-colon">:</div>
+      <div class="countdown-item"><div class="countdown-num" id="cd-secs">0</div><div class="countdown-label">SEC</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 6. LOCATION ===== -->
+<section id="location">
+  <div class="reveal">
+    <div class="section-title">LOCATION</div>
+    <div class="location-name serif">더 그랜드홀 웨딩</div>
+    <div class="location-addr">서울특별시 강남구 테헤란로 152<br>3층 그랜드볼룸</div>
+    <div class="location-tel">Tel. <a href="tel:02-1234-5678">02-1234-5678</a></div>
+    <div class="map-placeholder"><span>지도 영역</span></div>
+    <div class="map-buttons">
+      <a href="https://map.kakao.com" target="_blank" class="map-btn">카카오맵</a>
+      <a href="https://map.naver.com" target="_blank" class="map-btn">네이버지도</a>
+      <a href="https://maps.google.com" target="_blank" class="map-btn">구글맵</a>
+    </div>
+    <div class="transport-info">
+      <div class="transport-item">
+        <h4>지하철</h4>
+        <p>2호선 강남역 3번 출구에서 도보 5분<br>9호선 신논현역 5번 출구에서 도보 3분</p>
+      </div>
+      <div class="transport-item">
+        <h4>버스</h4>
+        <p>간선: 140, 144, 145, 471<br>지선: 3412, 4412</p>
+      </div>
+      <div class="transport-item">
+        <h4>자가용</h4>
+        <p>건물 내 지하주차장 이용 가능 (3시간 무료)</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 7. ACCOUNT ===== -->
+<section id="account">
+  <div class="reveal">
+    <div class="section-title">ACCOUNT</div>
+    <p class="sub-text" style="font-size:0.85rem; margin-bottom:24px;">축하의 마음을 전해주세요</p>
+    <div class="account-tabs">
+      <button class="account-tab active" data-tab="groom">신랑측</button>
+      <button class="account-tab" data-tab="bride">신부측</button>
+    </div>
+    <div class="account-panel active" id="panel-groom">
+      <div class="account-card">
+        <div class="bank">국민은행</div>
+        <div class="number">123-456-789012</div>
+        <div class="holder">김민준</div>
+        <button class="copy-btn" data-account="123-456-789012">복사</button>
+      </div>
+      <div class="account-card">
+        <div class="bank">신한은행</div>
+        <div class="number">110-234-567890</div>
+        <div class="holder">김영수 (아버지)</div>
+        <button class="copy-btn" data-account="110-234-567890">복사</button>
+      </div>
+      <div class="account-card">
+        <div class="bank">우리은행</div>
+        <div class="number">1002-345-678901</div>
+        <div class="holder">박미경 (어머니)</div>
+        <button class="copy-btn" data-account="1002-345-678901">복사</button>
+      </div>
+    </div>
+    <div class="account-panel" id="panel-bride">
+      <div class="account-card">
+        <div class="bank">카카오뱅크</div>
+        <div class="number">3333-01-2345678</div>
+        <div class="holder">이서연</div>
+        <button class="copy-btn" data-account="3333-01-2345678">복사</button>
+      </div>
+      <div class="account-card">
+        <div class="bank">하나은행</div>
+        <div class="number">234-567890-12345</div>
+        <div class="holder">이정호 (아버지)</div>
+        <button class="copy-btn" data-account="234-567890-12345">복사</button>
+      </div>
+      <div class="account-card">
+        <div class="bank">농협은행</div>
+        <div class="number">302-1234-5678-91</div>
+        <div class="holder">최수진 (어머니)</div>
+        <button class="copy-btn" data-account="302-1234-5678-91">복사</button>
+      </div>
+    </div>
+    <a href="#" class="kakao-pay-btn">카카오페이로 송금하기</a>
+  </div>
+</section>
+
+<!-- ===== 8. RSVP ===== -->
+<section id="rsvp">
+  <div class="reveal">
+    <div class="section-title">R.S.V.P</div>
+    <p class="sub-text" style="font-size:0.85rem; margin-bottom:28px;">참석 여부를 알려주세요</p>
+    <form class="rsvp-form" id="rsvpForm">
+      <div class="form-group">
+        <label>성함</label>
+        <input type="text" name="name" placeholder="이름을 입력해주세요" required>
+      </div>
+      <div class="form-group">
+        <label>참석 여부</label>
+        <div class="radio-group">
+          <div class="radio-option">
+            <input type="radio" name="attend" id="attend-yes" value="yes" checked>
+            <label for="attend-yes">참석</label>
+          </div>
+          <div class="radio-option">
+            <input type="radio" name="attend" id="attend-no" value="no">
+            <label for="attend-no">불참</label>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>식사 여부</label>
+        <div class="radio-group">
+          <div class="radio-option">
+            <input type="radio" name="meal" id="meal-yes" value="yes" checked>
+            <label for="meal-yes">식사 함</label>
+          </div>
+          <div class="radio-option">
+            <input type="radio" name="meal" id="meal-no" value="no">
+            <label for="meal-no">식사 안 함</label>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>참석 인원</label>
+        <select name="guests">
+          <option value="1">1명</option>
+          <option value="2">2명</option>
+          <option value="3">3명</option>
+          <option value="4">4명</option>
+          <option value="5">5명 이상</option>
+        </select>
+      </div>
+      <button type="submit" class="submit-btn">참석 의사 전달하기</button>
+    </form>
+  </div>
+</section>
+
+<!-- RSVP Toast -->
+<div class="rsvp-toast" id="rsvpToast">참석 의사가 전달되었습니다</div>
+
+<!-- ===== 9. FOOTER ===== -->
+<footer id="footer">
+  <div class="share-buttons">
+    <button class="share-btn" id="shareKakao">카카오톡 공유</button>
+    <button class="share-btn" id="shareLink">링크 복사</button>
+  </div>
+  <div class="copyright">&copy; 2025 MINJUN &amp; SEOYEON</div>
+</footer>
+
+<!-- General Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+/* ===================================
+   1. ENVELOPE OPENING
+   =================================== */
+(function() {
+  var wrap = document.getElementById('envelope-wrap');
+  var envelope = document.getElementById('envelope');
+  var opened = false;
+
+  wrap.addEventListener('click', function() {
+    if (opened) return;
+    opened = true;
+    envelope.classList.add('opened');
+
+    setTimeout(function() {
+      wrap.classList.add('hide');
+      document.getElementById('cover').classList.add('active');
+      document.body.style.overflow = '';
+    }, 1800);
+  });
+
+  document.body.style.overflow = 'hidden';
+})();
+
+/* ===================================
+   2. SCROLL REVEAL
+   =================================== */
+(function() {
+  var reveals = document.querySelectorAll('.reveal');
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+  reveals.forEach(function(el) { observer.observe(el); });
+})();
+
+/* ===================================
+   3. GALLERY SLIDER (SWIPE)
+   =================================== */
+(function() {
+  var track = document.getElementById('galleryTrack');
+  var slider = document.getElementById('gallerySlider');
+  var slides = track.querySelectorAll('.gallery-slide');
+  var dotsWrap = document.getElementById('galleryDots');
+  var current = 0;
+  var total = slides.length;
+  var startX = 0, moveX = 0, isDragging = false;
+
+  for (var i = 0; i < total; i++) {
+    var dot = document.createElement('div');
+    dot.className = 'gallery-dot' + (i === 0 ? ' active' : '');
+    dot.dataset.index = i;
+    dotsWrap.appendChild(dot);
+  }
+  var dots = dotsWrap.querySelectorAll('.gallery-dot');
+
+  function goTo(idx) {
+    if (idx < 0) idx = 0;
+    if (idx >= total) idx = total - 1;
+    current = idx;
+    track.style.transform = 'translateX(-' + (current * 100) + '%)';
+    dots.forEach(function(d, j) { d.classList.toggle('active', j === current); });
+  }
+
+  dotsWrap.addEventListener('click', function(e) {
+    if (e.target.classList.contains('gallery-dot')) goTo(parseInt(e.target.dataset.index));
+  });
+
+  slider.addEventListener('touchstart', function(e) {
+    startX = e.touches[0].clientX;
+    isDragging = true;
+    track.style.transition = 'none';
+  });
+  slider.addEventListener('touchmove', function(e) {
+    if (!isDragging) return;
+    moveX = e.touches[0].clientX - startX;
+    var offset = -(current * slider.offsetWidth) + moveX;
+    track.style.transform = 'translateX(' + offset + 'px)';
+  });
+  slider.addEventListener('touchend', function() {
+    isDragging = false;
+    track.style.transition = 'transform 0.4s ease';
+    if (moveX < -50) goTo(current + 1);
+    else if (moveX > 50) goTo(current - 1);
+    else goTo(current);
+    moveX = 0;
+  });
+})();
+
+/* ===================================
+   4. LIGHTBOX
+   =================================== */
+(function() {
+  var lightbox = document.getElementById('lightbox');
+  var lbImg = document.getElementById('lightboxImg');
+
+  document.getElementById('galleryGrid').addEventListener('click', function(e) {
+    var img = e.target.closest('.gallery-grid-item img');
+    if (!img) return;
+    lbImg.src = img.src.replace('/300/300', '/800/800');
+    lightbox.classList.add('show');
+  });
+  document.getElementById('galleryTrack').addEventListener('click', function(e) {
+    if (e.target.tagName === 'IMG') {
+      lbImg.src = e.target.src.replace('/600/600', '/800/800');
+      lightbox.classList.add('show');
+    }
+  });
+  document.getElementById('lightboxClose').addEventListener('click', function() {
+    lightbox.classList.remove('show');
+  });
+  lightbox.addEventListener('click', function(e) {
+    if (e.target === lightbox) lightbox.classList.remove('show');
+  });
+})();
+
+/* ===================================
+   5. COUNTDOWN
+   =================================== */
+(function() {
+  var target = new Date('2025-05-24T14:00:00+09:00').getTime();
+  function update() {
+    var now = Date.now();
+    var diff = target - now;
+    if (diff <= 0) {
+      document.getElementById('cd-days').textContent = '0';
+      document.getElementById('cd-hours').textContent = '0';
+      document.getElementById('cd-mins').textContent = '00';
+      document.getElementById('cd-secs').textContent = '00';
+      return;
+    }
+    document.getElementById('cd-days').textContent = Math.floor(diff / 86400000);
+    document.getElementById('cd-hours').textContent = Math.floor((diff % 86400000) / 3600000);
+    document.getElementById('cd-mins').textContent = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
+    document.getElementById('cd-secs').textContent = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
+  }
+  update();
+  setInterval(update, 1000);
+})();
+
+/* ===================================
+   6. ACCOUNT TABS & COPY
+   =================================== */
+(function() {
+  var tabs = document.querySelectorAll('.account-tab');
+  var panels = document.querySelectorAll('.account-panel');
+
+  tabs.forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      tabs.forEach(function(t) { t.classList.remove('active'); });
+      panels.forEach(function(p) { p.classList.remove('active'); });
+      tab.classList.add('active');
+      document.getElementById('panel-' + tab.dataset.tab).classList.add('active');
+    });
+  });
+
+  document.getElementById('account').addEventListener('click', function(e) {
+    var btn = e.target.closest('.copy-btn');
+    if (!btn) return;
+    navigator.clipboard.writeText(btn.dataset.account).then(function() {
+      btn.textContent = '복사됨';
+      btn.classList.add('copied');
+      setTimeout(function() { btn.textContent = '복사'; btn.classList.remove('copied'); }, 2000);
+    });
+  });
+})();
+
+/* ===================================
+   7. RSVP FORM
+   =================================== */
+(function() {
+  document.getElementById('rsvpForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var toast = document.getElementById('rsvpToast');
+    toast.classList.add('show');
+    setTimeout(function() { toast.classList.remove('show'); }, 3000);
+    this.reset();
+  });
+})();
+
+/* ===================================
+   8. FOOTER SHARE
+   =================================== */
+(function() {
+  var toast = document.getElementById('toast');
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(function() { toast.classList.remove('show'); }, 2500);
+  }
+  document.getElementById('shareKakao').addEventListener('click', function() {
+    showToast('카카오톡 공유 기능은 카카오 SDK 연동이 필요합니다');
+  });
+  document.getElementById('shareLink').addEventListener('click', function() {
+    navigator.clipboard.writeText(window.location.href).then(function() {
+      showToast('링크가 복사되었습니다');
+    });
+  });
+})();
+</script>
+</body>
+</html>
