@@ -438,6 +438,84 @@ section {
   max-height: 360px;
 }
 
+/* Dark overlay + handwriting text */
+.cover-overlay {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.4);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1s ease;
+}
+.cover-overlay.show { opacity: 1; }
+
+.cover-handwriting {
+  text-align: center;
+  color: #fff;
+}
+.cover-handwriting .hw-line {
+  display: block;
+  font-family: 'Great Vibes', cursive;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.cover-handwriting .hw-line span {
+  display: inline-block;
+  transform: translateX(-105%);
+  transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.cover-handwriting .hw-line span.written {
+  transform: translateX(0);
+}
+.hw-line-1 { font-size: 3rem; }
+.hw-line-2 { font-size: 3.8rem; margin-top: -4px; }
+.hw-line-3 {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 300;
+  letter-spacing: 4px;
+  margin-top: 16px;
+  color: rgba(255,255,255,0.7);
+}
+
+/* Scroll hint at bottom */
+.cover-scroll-hint {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 11;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+.cover-scroll-hint.show { opacity: 1; }
+.cover-scroll-hint span {
+  display: block;
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+.cover-scroll-hint .arrow {
+  display: block;
+  width: 1px;
+  height: 24px;
+  background: rgba(255,255,255,0.3);
+  margin: 0 auto;
+  animation: scrollArrow 1.5s ease-in-out infinite;
+}
+@keyframes scrollArrow {
+  0% { transform: scaleY(0); transform-origin: top; }
+  50% { transform: scaleY(1); transform-origin: top; }
+  51% { transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
 /* ========================================
    3. GREETING
    ======================================== */
@@ -962,6 +1040,19 @@ section {
 
 <!-- ===== 2. MAIN COVER — Film Style ===== -->
 <section id="cover">
+  <!-- Dark overlay with handwriting -->
+  <div class="cover-overlay" id="coverOverlay">
+    <div class="cover-handwriting">
+      <span class="hw-line hw-line-1"><span>We're getting</span></span>
+      <span class="hw-line hw-line-2"><span>Married!</span></span>
+      <span class="hw-line hw-line-3"><span>2025. 05. 24</span></span>
+    </div>
+  </div>
+  <div class="cover-scroll-hint" id="coverScrollHint">
+    <span>SCROLL</span>
+    <span class="arrow"></span>
+  </div>
+
   <div class="cover-film">
     <!-- Side texts -->
     <div class="cover-side-left">SAT · 2:00 PM</div>
@@ -1231,7 +1322,7 @@ section {
 
 <script>
 /* ===================================
-   1. ENVELOPE OPENING
+   1. ENVELOPE OPENING + HANDWRITING
    =================================== */
 (function() {
   var wrap = document.getElementById('envelope-wrap');
@@ -1247,6 +1338,25 @@ section {
       wrap.classList.add('hide');
       document.getElementById('cover').classList.add('active');
       document.body.style.overflow = '';
+
+      // Trigger handwriting animation
+      setTimeout(function() {
+        var overlay = document.getElementById('coverOverlay');
+        overlay.classList.add('show');
+
+        // Staggered writing effect for each line
+        var lines = overlay.querySelectorAll('.hw-line span');
+        lines.forEach(function(span, i) {
+          setTimeout(function() {
+            span.classList.add('written');
+          }, i * 600);
+        });
+
+        // Show scroll hint after writing completes
+        setTimeout(function() {
+          document.getElementById('coverScrollHint').classList.add('show');
+        }, lines.length * 600 + 500);
+      }, 800);
     }, 1800);
   });
 
