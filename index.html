@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>김민준 ♥ 이서연 결혼합니다</title>
+<title>서동해 ♥ 김문정 결혼합니다</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Gowun+Batang:wght@400;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -346,10 +346,25 @@ section{
 .gallery-dot.active{background:var(--burgundy)}
 
 .gallery-grid{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:4px;
-  margin-top:20px;max-width:400px;margin-left:auto;margin-right:auto;
+  display:grid;grid-template-columns:repeat(3,1fr);gap:6px;
+  margin-top:24px;max-width:400px;margin-left:auto;margin-right:auto;
+  perspective:800px;
 }
-.gallery-grid-item{aspect-ratio:1;overflow:hidden;border-radius:4px;cursor:pointer}
+.gallery-grid-item{
+  aspect-ratio:1;overflow:hidden;border-radius:4px;cursor:pointer;
+  opacity:0;
+  transform:translateY(-80px) rotate(0deg) scale(0.7);
+  transition:none;
+}
+.gallery-grid-item.tossed{
+  opacity:1;
+  transform:translateY(0) rotate(var(--rot,0deg)) scale(1);
+  transition:transform 0.5s cubic-bezier(0.22,1,0.36,1), opacity 0.3s ease;
+}
+.gallery-grid-item.tossed.landed{
+  transform:translateY(0) rotate(0deg) scale(1);
+  transition:transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+}
 .gallery-grid-item img{width:100%;height:100%;object-fit:cover;transition:transform 0.3s}
 .gallery-grid-item:hover img{transform:scale(1.05)}
 
@@ -515,7 +530,7 @@ section{
     <!-- FROM -->
     <div class="env-from">
       FROM:<br>
-      MINJUN & SEOYEON<br>
+      DONGHAE & MUNJEONG<br>
       SEOUL, KOREA
     </div>
 
@@ -534,7 +549,7 @@ section{
     <div class="env-center">
       <div class="env-title">Wedding<br>Invitation</div>
       <div class="env-subtitle">you are cordially invited</div>
-      <div class="env-names">김민준 그리고 이서연</div>
+      <div class="env-names">서동해 그리고 김문정</div>
     </div>
 
     <!-- Bottom -->
@@ -559,7 +574,7 @@ section{
   <div class="cover-detail" id="coverDetail">
     <div class="detail-line"></div>
     <div class="detail-date">SATURDAY, MAY 24 AT 2PM</div>
-    <div class="detail-names">김민준 그리고 이서연</div>
+    <div class="detail-names">서동해 그리고 김문정</div>
   </div>
   <div class="cover-scroll-hint" id="coverScrollHint">
     <span>SCROLL</span>
@@ -572,7 +587,7 @@ section{
   <div class="reveal">
     <div class="photos-film">
       <div class="photos-side-left">SAT · 2:00 PM</div>
-      <div class="photos-side-right">MINJUN & SEOYEON</div>
+      <div class="photos-side-right">DONGHAE & MUNJEONG</div>
       <div class="photo-frame"><img src="https://picsum.photos/seed/couple1/600/500" alt="커플 사진 1"></div>
       <div class="photo-frame"><img src="https://picsum.photos/seed/couple2/600/450" alt="커플 사진 2"></div>
     </div>
@@ -600,10 +615,10 @@ section{
     <div class="divider"></div>
     <div class="parents-info">
       <div class="parent-line reveal-line">
-        <span class="role">김영수 · 박미경</span><span>의 장남</span><span class="child-name">민준</span>
+        <span class="role">김영수 · 박미경</span><span>의 장남</span><span class="child-name">동해</span>
       </div>
       <div class="parent-line reveal-line">
-        <span class="role">이정호 · 최수진</span><span>의 장녀</span><span class="child-name">서연</span>
+        <span class="role">이정호 · 최수진</span><span>의 장녀</span><span class="child-name">문정</span>
       </div>
     </div>
   </div>
@@ -632,6 +647,9 @@ section{
       <div class="gallery-grid-item"><img src="https://picsum.photos/seed/wed4/300/300" alt=""></div>
       <div class="gallery-grid-item"><img src="https://picsum.photos/seed/wed5/300/300" alt=""></div>
       <div class="gallery-grid-item"><img src="https://picsum.photos/seed/wed6/300/300" alt=""></div>
+      <div class="gallery-grid-item"><img src="https://picsum.photos/seed/wed7/300/300" alt=""></div>
+      <div class="gallery-grid-item"><img src="https://picsum.photos/seed/wed8/300/300" alt=""></div>
+      <div class="gallery-grid-item"><img src="https://picsum.photos/seed/wed9/300/300" alt=""></div>
     </div>
   </div>
 </section>
@@ -703,12 +721,12 @@ section{
       <button class="account-tab" data-tab="bride">신부측</button>
     </div>
     <div class="account-panel active" id="panel-groom">
-      <div class="account-card"><div class="bank">국민은행</div><div class="number">123-456-789012</div><div class="holder">김민준</div><button class="copy-btn" data-account="123-456-789012">복사</button></div>
+      <div class="account-card"><div class="bank">국민은행</div><div class="number">123-456-789012</div><div class="holder">서동해</div><button class="copy-btn" data-account="123-456-789012">복사</button></div>
       <div class="account-card"><div class="bank">신한은행</div><div class="number">110-234-567890</div><div class="holder">김영수 (아버지)</div><button class="copy-btn" data-account="110-234-567890">복사</button></div>
       <div class="account-card"><div class="bank">우리은행</div><div class="number">1002-345-678901</div><div class="holder">박미경 (어머니)</div><button class="copy-btn" data-account="1002-345-678901">복사</button></div>
     </div>
     <div class="account-panel" id="panel-bride">
-      <div class="account-card"><div class="bank">카카오뱅크</div><div class="number">3333-01-2345678</div><div class="holder">이서연</div><button class="copy-btn" data-account="3333-01-2345678">복사</button></div>
+      <div class="account-card"><div class="bank">카카오뱅크</div><div class="number">3333-01-2345678</div><div class="holder">김문정</div><button class="copy-btn" data-account="3333-01-2345678">복사</button></div>
       <div class="account-card"><div class="bank">하나은행</div><div class="number">234-567890-12345</div><div class="holder">이정호 (아버지)</div><button class="copy-btn" data-account="234-567890-12345">복사</button></div>
       <div class="account-card"><div class="bank">농협은행</div><div class="number">302-1234-5678-91</div><div class="holder">최수진 (어머니)</div><button class="copy-btn" data-account="302-1234-5678-91">복사</button></div>
     </div>
@@ -751,7 +769,7 @@ section{
     <button class="share-btn" id="shareKakao">카카오톡 공유</button>
     <button class="share-btn" id="shareLink">링크 복사</button>
   </div>
-  <div class="copyright">&copy; 2025 MINJUN &amp; SEOYEON</div>
+  <div class="copyright">&copy; 2025 DONGHAE &amp; MUNJEONG</div>
 </footer>
 
 <div class="toast" id="toast"></div>
@@ -832,6 +850,33 @@ section{
   slider.addEventListener('touchstart',function(e){startX=e.touches[0].clientX;drag=true;track.style.transition='none'});
   slider.addEventListener('touchmove',function(e){if(!drag)return;moveX=e.touches[0].clientX-startX;track.style.transform='translateX('+(-(cur*slider.offsetWidth)+moveX)+'px)'});
   slider.addEventListener('touchend',function(){drag=false;track.style.transition='transform 0.4s ease';if(moveX<-50)goTo(cur+1);else if(moveX>50)goTo(cur-1);else goTo(cur);moveX=0});
+})();
+
+/* 3b. GALLERY TOSS ANIMATION */
+(function(){
+  var items=document.querySelectorAll('.gallery-grid-item');
+  var rotations=[-3,2,-1.5,2.5,-2,1.5,-2.5,1,-3.5];
+  items.forEach(function(item,i){
+    item.style.setProperty('--rot',(rotations[i%rotations.length])+'deg');
+  });
+  var tossObserver=new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        var grid=entry.target;
+        var children=grid.querySelectorAll('.gallery-grid-item');
+        children.forEach(function(child,i){
+          setTimeout(function(){
+            child.classList.add('tossed');
+            setTimeout(function(){
+              child.classList.add('landed');
+            },500);
+          },i*120);
+        });
+        tossObserver.unobserve(grid);
+      }
+    });
+  },{threshold:0.15});
+  tossObserver.observe(document.getElementById('galleryGrid'));
 })();
 
 /* 4. LIGHTBOX */
